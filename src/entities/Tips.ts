@@ -8,4 +8,6 @@ export class Tips{
     title:string     
     @Column({nullable:true})
     description:string
+    @Column({nullable:true,default:new Date()})
+    createdAt:Date
 }

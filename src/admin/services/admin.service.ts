@@ -42,19 +42,14 @@ export class AdminService {
     }
  }
  async edit(body:any,id:number){
-  const admin=await this.adminModel.findOneBy({id})
-  const pwMatches=await bcrypt.compare(body.password, admin.password);
-  if(!pwMatches) {
-      throw new ForbiddenException("Credentials incorrect")
-  }
   try {
-      const new_password = await bcrypt.hash(body.new_password, 10);
-      console.log(new_password)
+      const password = await bcrypt.hash(body.password, 10);
       await this.adminModel.update({id},{
-        password:new_password,username:body.username
+        password,username:body.username
       })  
       const new_admin=await this.adminModel.findOneBy({id})
       new_admin.password=undefined
+      console.log(new_admin)
     return this.signToken(new_admin)
 
 } catch (error) {
@@ -73,7 +68,8 @@ export class AdminService {
  }
  async uploadAudio(file:Express.Multer.File,id:number){
     const audio="audio.mp3"
-    writeFileSync(audio,file.buffer)
+    writeFileSync("src/uploads/"+audio,file.buffer)
     this.adminModel.update({id},{audio})
+    return "Sucess"
  }
 }
