@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Query, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { JwtGuard } from '../guard'
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ToursService } from '../services/tours.service';
-@Controller('admin/trips')
+@Controller('api/admin/trips')
 @UseGuards(JwtGuard)
 export class ToursControllers {
  constructor(private toursService:ToursService){}
@@ -13,8 +13,8 @@ export class ToursControllers {
    return this.toursService.create(body)
   }
   @Get()
-  getAllTours(){
-    return this.toursService.getAll()
+  getAllTours(@Query("limit") limit:number,@Query("offset") offset:number,@Query("keyword") keyword:string){
+    return this.toursService.getAll(limit,offset,keyword) 
   } 
   @Get(":id")
   getOnePlace(@Param("id",ParseIntPipe) id:number){

@@ -3,7 +3,7 @@ import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Po
 import { JwtGuard } from '../guard'
 import { StaticPlacesService } from '../services/static.places.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
-@Controller('admin/static')
+@Controller('api/admin/static')
 @UseGuards(JwtGuard)
 export class StaticPlacesControllers {
  constructor(private placeService:StaticPlacesService){}
@@ -31,6 +31,6 @@ export class StaticPlacesControllers {
   }
   @Delete("images/:id")
   deleteImage(@Param("id", ParseIntPipe) id:number){
-   return this.placeService.deleteImage(id)
+   return this.placeService.deleteImage(id) 
   }
 }

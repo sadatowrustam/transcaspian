@@ -6,7 +6,7 @@ import { Images } from "./Images";
 export class Tours{
     @PrimaryGeneratedColumn()
     id:number
-    @Column()
+    @Column({nullable:true})
     title:string     
     @OneToMany(()=>Images,(images)=>images.tours)
     images:Images[]

@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {  Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Admin } from 'src/entities/Admin';
+import { writeFileSync } from 'fs';
 @Injectable()
 export class AdminService {
  constructor(@InjectRepository(Admin) private adminModel:Repository<Admin>,
@@ -70,5 +71,9 @@ export class AdminService {
   })
   return {access_token:token,admin}
  }
-
+ async uploadAudio(file:Express.Multer.File,id:number){
+    const audio="audio.mp3"
+    writeFileSync(audio,file.buffer)
+    this.adminModel.update({id},{audio})
+ }
 }

@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, HttpCode, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, Patch, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AdminService } from '../services/admin.service';
 import { JwtGuard } from '../guard'
 import { GetUser } from '../decorator';
-@Controller('admin')
+import { FileInterceptor } from '@nestjs/platform-express';
+@Controller('api/admin')
 export class AdminController {
  constructor(private adminService:AdminService){}
  @Post("login")
@@ -19,5 +20,11 @@ export class AdminController {
  @UseGuards(JwtGuard)
  editAdmin(@Body() body:any,@GetUser("id") id:number ){
   return this.adminService.edit(body,id)
+ }
+ @Post("upload-image/:id")
+ @UseGuards(JwtGuard)
+ @UseInterceptors(FileInterceptor("audio")) 
+  uploadImage(@UploadedFile() file:Express.Multer.File,@GetUser("id") id:number){
+   return this.adminService.uploadAudio(file,id)
  }
 }

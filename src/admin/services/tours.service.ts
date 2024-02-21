@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import {  Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import * as sharp from "sharp"
 import {v4} from "uuid"
 import { Images } from 'src/entities/Images';
@@ -18,9 +18,10 @@ export class ToursService {
       await this.toursModel.save(new_tour)
       return new_tour
     }
- async getAll(){
-    const tours=await this.toursModel.find()
-    return tours
+ async getAll(take:number,skip:number,keyword:string){
+    const data=await this.toursModel.find({take,skip,where:{title:ILike("%"+keyword+"%")}})
+    const count=await this.toursModel.count({where:{title:ILike("%"+keyword+"%")}})
+    return {data,count}
  }
  async getOne(id:number){
     const one_trip=await this.toursModel.findOne({where:{id},relations:["images"]})

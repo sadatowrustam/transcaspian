@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards} from '@nestjs/common';
 import { JwtGuard } from '../guard'
 import { TipsService } from '../services/tips.service';
-@Controller('admin/tips')
+@Controller('api/admin/tips')
 @UseGuards(JwtGuard)
 export class TipsControllers {
  constructor(private tipsService:TipsService){}
@@ -11,8 +11,8 @@ export class TipsControllers {
    return this.tipsService.create(body)
   }
   @Get()
-  getAllTours(){
-    return this.tipsService.getAll()
+  getAllTours(@Query("limit") limit:number,@Query("offset") offset:number,@Query("keyword") keyword:string){
+    return this.tipsService.getAll(limit,offset,keyword)
   } 
   @Get(":id")
   getOnePlace(@Param("id",ParseIntPipe) id:number){

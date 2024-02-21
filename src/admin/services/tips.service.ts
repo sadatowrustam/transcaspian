@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import {  Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { Tips } from 'src/entities/Tips';
 @Injectable()
 export class TipsService {
@@ -13,9 +13,10 @@ export class TipsService {
       await this.tipsModel.save(new_tip)
       return new_tip
     }
- async getAll(){
-    const tips=await this.tipsModel.find()
-    return tips
+ async getAll(take:number,skip:number,keyword:string){
+    const tips=await this.tipsModel.find({take,skip,where:{title:ILike("%"+keyword+"%")}})
+    const count=await this.tipsModel.count({where:{title:ILike("%"+keyword+"%")}})
+    return {tips,count}
  }
  async getOne(id:number){
     const one_tip=await this.tipsModel.findOne({where:{id}})

@@ -9,4 +9,6 @@ export class Admin{
     username:string
     @Column()
     password:string
+    @Column({nullable:true})
+    audio:string
 }

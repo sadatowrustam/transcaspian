@@ -35,9 +35,9 @@ export class GalleryService {
     await sharp(file.buffer).webp().toFile("src/uploads/"+name)
   }
     else if(type=="video"){
-      name=v4()+".webp"
+      name=v4()+".mp4"
       const func=promisify(fs.writeFile)
-      await func("src/uploads/"+name+".mp4",file.buffer)
+      await func("src/uploads/"+name,file.buffer)
     }
     else throw new BadRequestException("Please provide a video(mp4) or picture(jpg,jpeg and etc.)")
     const new_gallery=await this.galleryModel.create({type,file:name})
@@ -45,12 +45,12 @@ export class GalleryService {
     return "Sucess"  
   }
   async deleteImage(id:number){
-    const one_gallery=await this.galleryModel.findOneBy({id})
+    const one_gallery=await this.galleryModel.findOneBy({id}) 
     if(!one_gallery) throw new NotFoundException()
     fs.unlink("src/uploads/"+one_gallery.file,(err)=>{ 
-      if(err) throw new Error(err.message)
+     if(err) throw new Error(err.message)
     })
-    await this.galleryModel.delete({id}) 
+await this.galleryModel.delete({id}) 
     return "Sucess"
  
   }

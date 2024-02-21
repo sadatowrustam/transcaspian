@@ -25,11 +25,11 @@ import { PublicModule } from './public/public.module';
       entities:[Admin,StaticPlaces,Images,Aboutus,Gallery,Tours,Tips]
     }),
     MulterModule.register({
-      dest:"./uploads",
+      dest:"./uploads", 
     }),
     AdminModule,
     ConfigModule.forRoot({isGlobal:true}),
-    PublicModule
-  ],
+    PublicModule, 
+  ], 
 })
-export class AppModule {} 
+export class AppModule {}  

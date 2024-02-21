@@ -3,7 +3,7 @@ import { Controller, Delete, Get,HttpCode,Param, ParseIntPipe, Post, UploadedFil
 import { JwtGuard } from '../guard'
 import { FileInterceptor } from '@nestjs/platform-express';
 import { GalleryService } from '../services/gallery.service';
-@Controller('admin/gallery')
+@Controller('api/admin/gallery')
 @UseGuards(JwtGuard)
 export class GalleryController {
  constructor(private galleryService:GalleryService){}

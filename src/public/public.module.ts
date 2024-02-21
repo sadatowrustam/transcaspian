@@ -13,10 +13,12 @@ import { Gallery } from 'src/entities/Gallery';
 import { Tours } from 'src/entities/Tours';
 import { Tips } from 'src/entities/Tips';
 import { Images } from 'src/entities/Images';
+import { ImageController } from './image.controller';
+import { ImagesService } from './image.service';
 
 @Module({
-  controllers: [PublicController],
-  providers:[StaticPlacesService,AboutusService,GalleryService,ToursService,TipsService],
+  controllers: [PublicController,ImageController],
+  providers:[StaticPlacesService,AboutusService,GalleryService,ToursService,TipsService,ImagesService],
   imports:[TypeOrmModule.forFeature([StaticPlaces,Aboutus,Gallery,Tours,Tips,Images])]
 })
 export class PublicModule {}

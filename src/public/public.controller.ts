@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { AboutusService } from 'src/admin/services/aboutUs.service';
 import { GalleryService } from 'src/admin/services/gallery.service';
 import { StaticPlacesService } from 'src/admin/services/static.places.service';
@@ -15,11 +15,11 @@ export class PublicController {
   private galleryService:GalleryService,
   private tripsService:ToursService
   ){}
- @Get("main")
+ @Get("static")
  getMainPage(){
   return this.mainPageService.getAll()
  }
- @Get("main/:id")
+ @Get("static/:id")
  getOneStaticPlace(@Param("id",ParseIntPipe) id:number){
   return this.mainPageService.getOne(id)
  }
@@ -32,16 +32,16 @@ export class PublicController {
   return this.galleryService.getGallery()
  }
  @Get("trips")
- getTrips(){
-  return this.tripsService.getAll()
+ getTrips(@Query("limit") limit:number,@Query("offset") offset:number,@Query("keyword") keyword:string){
+  return this.tripsService.getAll(limit,offset,keyword)
  } 
  @Get("trips/:id")
  getOneTrip(@Param("id",ParseIntPipe) id:number){
    return this.tripsService.getOne(id)
  }
  @Get("tips")
- getTips(){
-  return this.tipsService.getAll()
+ getTips(@Query("limit") limit:number,@Query("offset") offset:number,@Query("keyword") keyword:string){
+  return this.tipsService.getAll(limit,offset,keyword)
  }
  @Get("tips/:id")
  getOneTip(@Param("id",ParseIntPipe) id:number){

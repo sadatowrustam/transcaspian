@@ -3,7 +3,7 @@ import { Body, Controller, Delete, Get,HttpCode,Param, ParseIntPipe, Patch, Post
 import { JwtGuard } from '../guard'
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { AboutusService } from '../services/aboutUs.service';
-@Controller('admin/about-us')
+@Controller('api/admin/about-us')
 @UseGuards(JwtGuard)
 export class AboutusControllers {
  constructor(private aboutUsService:AboutusService){}
