@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { JwtGuard } from '../guard'
 import { StaticPlacesService } from '../services/static.places.service';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 @Controller('api/admin/static')
 @UseGuards(JwtGuard)
 export class StaticPlacesControllers {
@@ -29,6 +29,11 @@ export class StaticPlacesControllers {
    uploadImage(@UploadedFiles() files:Express.Multer.File[],@Param("id",ParseIntPipe) id:number){
     return this.placeService.uploadImage(files,id)
   }
+  @Post("upload-icon/:id")
+  @UseInterceptors(FileInterceptor("icon")) 
+   uploadIcon(@UploadedFile() file:Express.Multer.File,@Param("id",ParseIntPipe) id:number){
+    return this.placeService.uploadIcon(file,id)
+   }
   @Delete("images/:id")
   deleteImage(@Param("id", ParseIntPipe) id:number){
    return this.placeService.deleteImage(id) 

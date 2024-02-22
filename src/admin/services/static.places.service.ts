@@ -93,6 +93,14 @@ export class StaticPlacesService {
     }
     return "Sucess"
 }  
+async uploadIcon(file:Express.Multer.File,id:number){
+  const place=await this.staticPlacesModel.findOneBy({id})
+  if(!place) throw new NotFoundException()
+  const icon=id+"-place.icon.webp"
+  await sharp(file.buffer).webp().toFile("src/uploads/"+icon)
+  await this.staticPlacesModel.update({id},{icon})
+  return "Sucess"
+} 
 async deleteImage(id:number){
     await this.imagesModel.delete({id})
     return "Sucess"
