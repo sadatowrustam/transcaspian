@@ -18,7 +18,7 @@ export class ToursService {
       await this.toursModel.save(new_tour)
       return new_tour
     }
- async getAll(take:number,skip:number,keyword:string){
+ async getAll(take:number,skip:number,keyword:string=""){
     const data=await this.toursModel.find({take,skip,where:{title:ILike("%"+keyword+"%")},order:{id:"DESC"}})
     const count=await this.toursModel.count({where:{title:ILike("%"+keyword+"%")}})
     return {data,count}

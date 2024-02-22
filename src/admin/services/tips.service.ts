@@ -13,7 +13,7 @@ export class TipsService {
       await this.tipsModel.save(new_tip)
       return new_tip
     }
- async getAll(take:number,skip:number,keyword:string){
+ async getAll(take:number,skip:number,keyword:string=""){
     const tips=await this.tipsModel.find({take,skip,where:{title:ILike("%"+keyword+"%")}})
     const count=await this.tipsModel.count({where:{title:ILike("%"+keyword+"%")}})
     return {tips,count}
