@@ -19,7 +19,7 @@ export class ToursService {
       return new_tour
     }
  async getAll(take:number,skip:number,keyword:string=""){
-    const data=await this.toursModel.find({take,skip,where:{title:ILike("%"+keyword+"%")},order:{id:"DESC"}})
+    const data=await this.toursModel.find({take,skip,where:{title:ILike("%"+keyword+"%")},order:{id:"DESC"},relations:["images"]})
     const count=await this.toursModel.count({where:{title:ILike("%"+keyword+"%")}})
     return {data,count}
  }
