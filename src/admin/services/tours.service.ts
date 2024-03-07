@@ -32,7 +32,7 @@ export class ToursService {
   const trip=await this.toursModel.findOneBy({id})
   if(!trip) throw new NotFoundException()
   try {
-      await this.toursModel.update({id},{
+      await this.toursModel.update({id},{ 
         ...body
     })  
     return "Sucess"

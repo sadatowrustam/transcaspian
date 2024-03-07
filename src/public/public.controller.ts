@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { AboutusService } from 'src/admin/services/aboutUs.service';
 import { GalleryService } from 'src/admin/services/gallery.service';
+import { MailsService } from 'src/admin/services/mails.service';
 import { StaticPlacesService } from 'src/admin/services/static.places.service';
 import { TipsService } from 'src/admin/services/tips.service';
 import { ToursService } from 'src/admin/services/tours.service';
@@ -13,7 +14,8 @@ export class PublicController {
   private mainPageService:StaticPlacesService,
   private abotuUsService:AboutusService,
   private galleryService:GalleryService,
-  private tripsService:ToursService
+  private tripsService:ToursService,
+  private mailsService:MailsService
   ){}
  @Get("static")
  getMainPage(){
@@ -46,5 +48,9 @@ export class PublicController {
  @Get("tips/:id")
  getOneTip(@Param("id",ParseIntPipe) id:number){
   return this.tipsService.getOne(id)
+ }
+ @Post("contact-us")
+ sendMail(@Body() body:any){
+  return this.mailsService.create(body)
  }
 }

@@ -15,10 +15,12 @@ import { Tips } from 'src/entities/Tips';
 import { Images } from 'src/entities/Images';
 import { ImageController } from './image.controller';
 import { ImagesService } from './image.service';
+import { Mails } from 'src/entities/Mails';
+import { MailsService } from 'src/admin/services/mails.service';
 
 @Module({
   controllers: [PublicController,ImageController],
-  providers:[StaticPlacesService,AboutusService,GalleryService,ToursService,TipsService,ImagesService],
-  imports:[TypeOrmModule.forFeature([StaticPlaces,Aboutus,Gallery,Tours,Tips,Images])]
+  providers:[StaticPlacesService,AboutusService,GalleryService,ToursService,TipsService,ImagesService,MailsService],
+  imports:[TypeOrmModule.forFeature([StaticPlaces,Aboutus,Gallery,Tours,Tips,Images,Mails])]
 })
 export class PublicModule {}
