@@ -23,9 +23,11 @@ import { Tours } from 'src/entities/Tours';
 import { TipsControllers } from './controllers/tips.controller';
 import { TipsService } from './services/tips.service';
 import { Tips } from 'src/entities/Tips';
+import { MailsControllers } from './controllers/mails.controller';
+import { MailsService } from './services/mails.service';
 @Module({
-  controllers: [AdminController,StaticPlacesControllers,AboutusControllers,GalleryController,ToursControllers,TipsControllers],
-  providers: [AdminService,JwtStrategy,StaticPlacesService,AboutusService,GalleryService,ToursService,TipsService],
+  controllers: [AdminController,StaticPlacesControllers,AboutusControllers,GalleryController,ToursControllers,TipsControllers,MailsControllers],
+  providers: [AdminService,JwtStrategy,StaticPlacesService,AboutusService,GalleryService,ToursService,TipsService,MailsService],
   imports:[
     TypeOrmModule.forFeature([Admin,StaticPlaces,Images,Aboutus,Gallery,Tours,Tips]),
     JwtModule.register({}),

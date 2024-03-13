@@ -2,7 +2,7 @@
 import { Controller, Delete, Get, Param, ParseIntPipe, Query, UseGuards} from '@nestjs/common';
 import { JwtGuard } from '../guard'
 import { MailsService } from '../services/mails.service';
-@Controller('api/admin/tips')
+@Controller('api/admin/mails')
 @UseGuards(JwtGuard)
 export class MailsControllers {
  constructor(private mailsService:MailsService){}
