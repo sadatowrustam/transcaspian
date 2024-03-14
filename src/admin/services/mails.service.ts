@@ -19,15 +19,15 @@ export class MailsService {
          port: 465,
          secure: true,
          auth: {
-             user: 'rustamsadatov0@gmail.com',
-             pass: 'smvamzeedrfahnkj',
+             user: 'mailsendergeekspace@gmail.com',
+             pass: 'flvrwpeivyprujtd',
          },
      });
      const mailOptions = {
-         from: 'rustamsadatov0@gmail.com',
+         from: 'mailsendergeekspace@gmail.com',
          to: admin.mail,
          subject: 'Notification',
-         html:body.text ,
+         text:"text: "+body.text+"\n mail: "+body.mail,
      };
      await transporter.sendMail(mailOptions);
       await this.mailsModel.save(new_mail)

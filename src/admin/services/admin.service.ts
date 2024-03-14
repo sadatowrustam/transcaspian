@@ -43,7 +43,10 @@ export class AdminService {
  }
  async edit(body:any,id:number){
   try {
-      const password = await bcrypt.hash(body.password, 10);
+    let password:string
+    if(body.password!=""){
+        password = await bcrypt.hash(body.password, 10);
+    }
       await this.adminModel.update({id},{
         password,username:body.username,mail:body.mail
       })  
