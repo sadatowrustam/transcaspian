@@ -45,7 +45,7 @@ export class AdminService {
   try {
       const password = await bcrypt.hash(body.password, 10);
       await this.adminModel.update({id},{
-        password,username:body.username
+        password,username:body.username,mail:body.mail
       })  
       const new_admin=await this.adminModel.findOneBy({id})
       new_admin.password=undefined

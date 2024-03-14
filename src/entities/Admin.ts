@@ -11,4 +11,6 @@ export class Admin{
     password:string
     @Column({nullable:true})
     audio:string
+    @Column({nullable:true})
+    mail:string
 }
