@@ -54,7 +54,7 @@ export class AdminService {
 
 } catch (error) {
     throw error 
-    }
+    } 
 }
  async signToken(admin:any):Promise<any>{
   const payload={

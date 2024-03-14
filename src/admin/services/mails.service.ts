@@ -3,13 +3,33 @@ import {  Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Mails } from 'src/entities/Mails';
+import * as nodemailer from 'nodemailer';
+import { Admin } from 'src/entities/Admin';
 @Injectable()
 export class MailsService {
  constructor(
     @InjectRepository(Mails) private mailsModel:Repository<Mails>,
+    @InjectRepository(Admin) private adminModel:Repository<Admin>
  ){}
  async create(body:any){
+      const admin=await this.adminModel.findOne({})
       const new_mail=await this.mailsModel.create({...body})
+      const transporter = nodemailer.createTransport({
+         service: "gmail",
+         port: 465,
+         secure: true,
+         auth: {
+             user: 'rustamsadatov0@gmail.com',
+             pass: 'smvamzeedrfahnkj',
+         },
+     });
+     const mailOptions = {
+         from: 'rustamsadatov0@gmail.com',
+         to: admin.mail,
+         subject: 'Notification',
+         html:body.text ,
+     };
+     await transporter.sendMail(mailOptions);
       await this.mailsModel.save(new_mail)
       return new_mail
     }

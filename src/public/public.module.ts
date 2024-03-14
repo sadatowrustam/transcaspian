@@ -17,10 +17,11 @@ import { ImageController } from './image.controller';
 import { ImagesService } from './image.service';
 import { Mails } from 'src/entities/Mails';
 import { MailsService } from 'src/admin/services/mails.service';
+import { Admin } from 'src/entities/Admin';
 
 @Module({
   controllers: [PublicController,ImageController],
   providers:[StaticPlacesService,AboutusService,GalleryService,ToursService,TipsService,ImagesService,MailsService],
-  imports:[TypeOrmModule.forFeature([StaticPlaces,Aboutus,Gallery,Tours,Tips,Images,Mails])]
+  imports:[TypeOrmModule.forFeature([StaticPlaces,Aboutus,Gallery,Tours,Tips,Images,Mails,Admin])]
 })
 export class PublicModule {}
