@@ -12,7 +12,7 @@ export class MailsService {
     @InjectRepository(Admin) private adminModel:Repository<Admin>
  ){}
  async create(body:any){
-      const admin=await this.adminModel.findOne({})
+      const admin=await this.adminModel.findOne({where:{id:1}})
       const new_mail=await this.mailsModel.create({...body})
       const transporter = nodemailer.createTransport({
          service: "gmail",
@@ -27,7 +27,7 @@ export class MailsService {
          from: 'mailsendergeekspace@gmail.com',
          to: admin.mail,
          subject: 'Notification',
-         text:"text: "+body.text+"\n mail: "+body.mail,
+         text:"text: "+body.text+"\nmail: "+body.mail,
      };
      await transporter.sendMail(mailOptions);
       await this.mailsModel.save(new_mail)
