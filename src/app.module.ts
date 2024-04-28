@@ -13,6 +13,7 @@ import { Tours } from './entities/Tours';
 import { Tips } from './entities/Tips';
 import { PublicModule } from './public/public.module';
 import { Mails } from './entities/Mails';
+import { TimeoutInterceptor } from './timeout/timeout.interceptor';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -20,17 +21,19 @@ import { Mails } from './entities/Mails';
       host:"localhost",
       port:5432,
       username:"postgres",
-      password:"kuwat2009",
+      password:"5432",
       database:"transcaspian",
       synchronize:true,
       entities:[Admin,StaticPlaces,Images,Aboutus,Gallery,Tours,Tips,Mails]
     }),
     MulterModule.register({
       dest:"./uploads", 
+      limits: { fileSize: 524288000 },
     }),
     AdminModule,
     ConfigModule.forRoot({isGlobal:true}),
     PublicModule, 
   ], 
+  providers:[TimeoutInterceptor]
 })
 export class AppModule {}  

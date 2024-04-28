@@ -26,22 +26,25 @@ export class GalleryService {
     return new_gallery
     
   }
-  async uploadImage(file:Express.Multer.File){
-    const type=file.mimetype.split("/")[0]
-    if(!file) throw new BadRequestException("Please provide a picture")
-    let name=""
-  if(type=="image"){
-    name=v4()+".webp"
-    await sharp(file.buffer).webp().toFile("src/uploads/"+name)
-  }
-    else if(type=="video"){
-      name=v4()+".mp4"
-      const func=promisify(fs.writeFile)
-      await func("src/uploads/"+name,file.buffer)
+  async uploadImage(files:Express.Multer.File[]){
+    for(const file of files){
+      const type=file.mimetype.split("/")[0]
+      if(!file) throw new BadRequestException("Please provide a picture")
+        let name=""
+      if(type=="image"){
+        name=v4()+".webp"
+        await sharp(file.buffer).webp().toFile("src/uploads/"+name)
+      }
+        else if(type=="video"){
+          name=v4()+".mp4"
+          const func=promisify(fs.writeFile)
+          await func("src/uploads/"+name,file.buffer)
+        }
+        else throw new BadRequestException("Please provide a video(mp4) or picture(jpg,jpeg and etc.)")
+        const new_gallery=await this.galleryModel.create({type,file:name})
+        await this.galleryModel.save(new_gallery)
     }
-    else throw new BadRequestException("Please provide a video(mp4) or picture(jpg,jpeg and etc.)")
-    const new_gallery=await this.galleryModel.create({type,file:name})
-    await this.galleryModel.save(new_gallery)
+    
     return "Sucess"  
   }
   async deleteImage(id:number){
