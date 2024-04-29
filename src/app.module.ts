@@ -28,12 +28,12 @@ import { TimeoutInterceptor } from './timeout/timeout.interceptor';
     }),
     MulterModule.register({
       dest:"./uploads", 
-      limits: { fileSize: 524288000 },
+      // limits: { fileSize: 524288000 },
     }),
     AdminModule,
     ConfigModule.forRoot({isGlobal:true}),
     PublicModule, 
   ], 
-  providers:[TimeoutInterceptor]
+  // providers:[TimeoutInterceptor]
 })
 export class AppModule {}  
