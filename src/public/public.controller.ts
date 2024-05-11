@@ -15,7 +15,7 @@ export class PublicController {
   private abotuUsService:AboutusService,
   private galleryService:GalleryService,
   private tripsService:ToursService,
-  private mailsService:MailsService
+  private mailsService:MailsService,
   ){}
  @Get("static")
  getMainPage(){
@@ -26,7 +26,7 @@ export class PublicController {
   return this.mainPageService.getOne(id)
  }
  @Get("about-us")
- getAboutUs(){
+ getAboutUs(                                 ){
   return this.abotuUsService.getAboutus()
  }
  @Get('gallery')

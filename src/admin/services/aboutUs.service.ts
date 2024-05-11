@@ -11,7 +11,8 @@ import * as fs from "fs"
 export class AboutusService {
  constructor(
     @InjectRepository(Aboutus) private aboutUsModel:Repository<Aboutus>, 
-    @InjectRepository(Images) private imagesModel:Repository<Images>
+    @InjectRepository(Images) private imagesModel:Repository<Images>,
+    
    ){}
    async seed(){
     const seed=await this.aboutUsModel.create()
