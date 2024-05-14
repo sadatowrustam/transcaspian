@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryGeneratedColumn,OneToMany, AfterLoad, BeforeInsert } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn,OneToMany, } from "typeorm";
 import { Images } from "./Images";
 
 @Entity({name:"tours"})
@@ -18,13 +18,4 @@ export class Tours{
     meta_keyword:string
     @Column({nullable:true})
     meta_description:string
-    @AfterLoad()
-    transform(){
-        if(this.meta_keyword!=null)
-            this.meta_keyword=JSON.parse(this.meta_keyword)
-    }
-    @BeforeInsert()
-    change(data:string){
-        this.meta_keyword=JSON.stringify(data)
-    }
 }
