@@ -21,12 +21,19 @@ export class AboutusService {
    }
   async getAboutus(){
     const about_us=await this.aboutUsModel.findOne({where:{id:1},relations:["images"]})
+    console.log(about_us)
     about_us.description=JSON.parse(about_us.description)
     about_us.header=JSON.parse(about_us.header)
     return about_us
   }
   async editAboutUs(body:any){
-    await this.aboutUsModel.update({id:1},{description:JSON.stringify(body.description),header:JSON.stringify(body.header)})
+    console.log("body",body.description)
+    await this.aboutUsModel.update({id:1},{
+      description:JSON.stringify(body.description),
+      header:JSON.stringify(body.header),
+      meta_description:body.meta_description,
+      meta_keyword:body.meta_keyword,
+      meta_name:body.meta_name})
     return "Sucess"
   }
   async uploadImage(files:Express.Multer.File[],about_us:any){
