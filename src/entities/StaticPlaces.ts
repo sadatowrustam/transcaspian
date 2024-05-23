@@ -12,7 +12,7 @@ export class StaticPlaces{
     icon:string        
     @OneToMany(()=>Images,(images)=>images.place)
     images:Images[]
-    @Column({nullable:true})
+    @Column({nullable:true,type:"text"})
     description:string
     @Column({nullable:true})
     meta_name:string

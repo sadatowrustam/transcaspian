@@ -10,7 +10,7 @@ export class Aboutus{
     header:string        
     @OneToMany(()=>Images,(images)=>images.about_us)
     images:Images[]
-    @Column({default:"[]"})
+    @Column({default:"[]",type:"text"})
     description:string
     @Column({nullable:true})
     meta_name:string

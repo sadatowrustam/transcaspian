@@ -15,5 +15,5 @@ export class Tips{
     @Column({nullable:true})
     meta_keyword:string
     @Column({nullable:true})
-    meta_description:string
+    meta_description: string
 }
