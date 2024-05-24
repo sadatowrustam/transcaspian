@@ -10,7 +10,7 @@ export class Tours{
     title:string     
     @OneToMany(()=>Images,(images)=>images.tours)
     images:Images[]
-    @Column({nullable:true})
+    @Column({nullable:true,type:"text"})
     description:string
     @Column({nullable:true})
     meta_name:string

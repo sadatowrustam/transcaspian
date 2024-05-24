@@ -27,7 +27,6 @@ export class AboutusService {
     return about_us
   }
   async editAboutUs(body:any){
-    console.log("body",body.description)
     await this.aboutUsModel.update({id:1},{
       description:JSON.stringify(body.description),
       header:JSON.stringify(body.header),
